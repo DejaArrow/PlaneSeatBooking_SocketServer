@@ -65,6 +65,7 @@ namespace Server
                         byte[] message = Encoding.ASCII.GetBytes(serialisedItem);
 
                         clientSocket.Send(message);
+                        //Recieved and responds to quest for Flight list. 
                     }
                     else if (packageItems[0] == "NoOfFlights")
                     {
@@ -74,9 +75,11 @@ namespace Server
                         byte[] message = Encoding.ASCII.GetBytes(serialisedItem);
 
                         clientSocket.Send(message);
+                        //Returns list of Flights
                     }
                     else if (packageItems[0] == "BookASeat")
                     {
+                        
                         bool Successful = FlightList.Flights[Convert.ToInt32(packageItems[1])].BookSeat(packageItems[2]);
                         DataItem response = new DataItem(" ");
                         if (Successful)
@@ -88,6 +91,7 @@ namespace Server
                         {
                              response = new DataItem("Seat Unavailable");
                         }
+                        //Prevents seat being booked if already occupied.
                         
                         
                         string serialisedItem = DataItemSerialisation.GetSerialisedDataItem(response);
@@ -104,6 +108,7 @@ namespace Server
                         byte[] message = Encoding.ASCII.GetBytes(serialisedItem);
 
                         clientSocket.Send(message);
+                        //Sends seating plan to client
                     }
                     else if (packageItems[0] == "AvailableSeats")
                     {
@@ -113,6 +118,7 @@ namespace Server
                         byte[] message = Encoding.ASCII.GetBytes(serialisedItem);
 
                         clientSocket.Send(message);
+                        //Sends available seat list to Client.
                     }
 
 

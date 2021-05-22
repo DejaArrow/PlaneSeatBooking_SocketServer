@@ -12,6 +12,7 @@ namespace Server
         public static List<Flight> Flights = new List<Flight>();
 
         static FlightList()
+        //Populates FlightList with Flight data.
         {
             Flights.Add(new Flight("Boeing 737", "B737Cal", "California", 108));
             Flights.Add(new Flight("Boeing 737", "B737Lon", "London", 108));

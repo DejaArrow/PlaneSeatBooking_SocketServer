@@ -80,7 +80,7 @@ namespace Client
                     string serialisedItem = DataItemSerialisation.GetSerialisedDataItem(request);
                     sender.Connect(localEndPoint);
                     
-                    // Send data request to server
+                    // Send data request for Flight IDs to server
                     byte[] messageToSend = Encoding.ASCII.GetBytes(serialisedItem + "<EOF>");
                     int byteSent = sender.Send(messageToSend);
 
