@@ -5,24 +5,22 @@ namespace Shared
 {
     public class DataItem : ISerialisableData
     {
-        public string Id { get; set; }
+        public string package { get; set; }
         //Private constructor to allow for serialisation
         private DataItem() { }
         public DataItem(string data)
         {
-            this.Id = data;
+            this.package = data;
         }
     }
-    /// <summary>
-    /// DataItem serialisation.
-    /// </summary>
+   
+    // DataItem serialisation.
+    
     public static class DataItemSerialisation
     {
-        /// <summary>
-        /// Gets the serialised DataItem.
-        /// </summary>
-        /// <returns>The serialised ISerialisableData string.</returns>
-        /// <param name="dataItem">Data item.</param>
+       
+        // Gets the serialised DataItem.
+      
         public static string GetSerialisedDataItem(DataItem dataItem)
         {
             XmlSerializer serialiser = new XmlSerializer(dataItem.GetType());
@@ -33,11 +31,9 @@ namespace Shared
             }
         }
 
-        /// <summary>
-        /// Gets the deserialised DataItem.
-        /// </summary>
-        /// <returns>The DataItem.</returns>
-        /// <param name="serialisedData">Serialised DataItem.</param>
+        
+        // Gets the deserialised DataItem.
+        
         public static DataItem GetDataItem(string serialisedData)
         {
             XmlSerializer deserialiser = new XmlSerializer(typeof(DataItem));

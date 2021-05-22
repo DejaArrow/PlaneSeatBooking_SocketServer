@@ -4,18 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Shared
 {
     public class Flight
+        //Plane Factory
     {
         public List<Seat> Seats = new List<Seat>();
         public string Type { get; }
         public string FlightID { get; }
         public string Destination { get; }
         public int NoOfSeats { get; }
-
-        // public override int GetHashCode() => (FlightID).GetHashCode();
-        //This is also incorrect? As we're hashing the seat number into the different flight tables?
 
         public Flight(string type, string flightID, string destination, int noOfSeats)
         {
@@ -30,9 +28,10 @@ namespace Client
         }
 
         public bool BookSeat(string seatID)
+        //Switches Seat state to Occupied when booked.
         {
             Seat SeatToBook = Seats.Find(x => x.SeatID == seatID);
-            if(SeatToBook.Occupation == false)
+            if (SeatToBook.Occupation == false)
             {
                 SeatToBook.Occupation = true;
                 return true;
@@ -43,45 +42,55 @@ namespace Client
             }
         }
 
-        public void DisplayAvailableSeats()
+
+        public string GetAvailableSeats()
+        //Lists all available seats for the selected flight.
         {
-            foreach(Seat seat in Seats)
+            string availableSeats = "";
+            foreach (Seat seat in Seats)
             {
-                if(!seat.Occupation)
+                if (!seat.Occupation)
                 {
-                    Console.WriteLine($"{seat.SeatID} is available.");
+                    availableSeats += $"{seat.SeatID} is available\n";
                 }
             }
+            return availableSeats;
         }
 
-        public void DisplaySeatList()
+
+        public string GetSeatingPlan()
+        //Iterator Pattern
+        //Displays Seating plan for flight, represented by 'H' for available seats, occupied seats represented by 'O'
         {
             int RowCounter = 0;
+            string SeatingPlan = "";
 
             for (int i = 0; i < NoOfSeats; i++)
             {
                 if (Seats[i].Occupation)
                 {
-                    Console.Write("O", Console.ForegroundColor = ConsoleColor.Red);
-                    
+                    SeatingPlan += "O";
+
                 }
                 else
                 {
-                    Console.Write("H", Console.ForegroundColor = ConsoleColor.Gray);
+                    SeatingPlan += "H";
                 }
 
                 RowCounter++;
 
-                if (RowCounter == 3 || RowCounter ==6)
+                if (RowCounter == 3 || RowCounter == 6)
                 {
-                    Console.Write(" ");
+                    SeatingPlan += " ";
                 }
-                if(RowCounter == 9)
+                if (RowCounter == 9)
                 {
-                    Console.Write("\n");
+                    SeatingPlan += "\n";
                     RowCounter = 0;
                 }
             }
+
+            return SeatingPlan;
         }
     }
 }

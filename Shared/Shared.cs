@@ -2,6 +2,6 @@
 {
     public interface ISerialisableData
     {
-        string Id { get; }
+        string package { get; }
     }
 }
